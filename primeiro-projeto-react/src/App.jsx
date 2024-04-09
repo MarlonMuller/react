@@ -4,16 +4,19 @@ import { v4 as uuid } from 'uuid';
 
 function App() {
   const [list, setList] = useState([{id:uuid(), task:"Nada"}]);
+  const [task, setTask] = useState('');
+
 
   function inputMudou(event) {
-    console.log(event.target.value)
-
-    setList([{id:uuid(), task:event.target.value}])
+    setTask(event.target.value)
+    console.log(task)
   }
 
   function cliqueiNoBotao() {
-    console.log("Cliquei")
+    setList([...list, {id:uuid(), task}])
   }
+
+
 
 
   // Retorna código HTML
