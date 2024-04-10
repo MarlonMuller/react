@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { v4 as uuid } from 'uuid';
-import { Container, ToDoList, Input, Button } from './styles'
+import { FcCheckmark, FcEmptyTrash } from "react-icons/fc";
+import { Container, ToDoList, Input, Button, ListItem } from './styles'
 
 function App() {
-  const [list, setList] = useState([{ id: uuid(), task: "Nada" }]);
+  const [list, setList] = useState([{ id: uuid(), task: "Nada", finished: true }]);
   const [task, setTask] = useState('');
 
 
@@ -13,7 +14,7 @@ function App() {
   }
 
   function cliqueiNoBotao() {
-    setList([...list, { id: uuid(), task }])
+    setList([...list, { id: uuid(), task, finished: false }])
   }
 
 
@@ -28,7 +29,11 @@ function App() {
         <ul>
           {
             list.map(item => (
-              <li key={item.id}> {item.task}</li>
+              <ListItem isFinished={item.finished}>
+                <FcCheckmark />
+                <li key={item.id}> {item.task}</li>
+                <FcEmptyTrash />
+              </ListItem>
             ))
           }
         </ul>
