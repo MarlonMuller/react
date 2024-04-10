@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { v4 as uuid } from 'uuid';
-
+import { Container, ToDoList, Input, Button } from './styles'
 
 function App() {
-  const [list, setList] = useState([{id:uuid(), task:"Nada"}]);
+  const [list, setList] = useState([{ id: uuid(), task: "Nada" }]);
   const [task, setTask] = useState('');
 
 
@@ -13,7 +13,7 @@ function App() {
   }
 
   function cliqueiNoBotao() {
-    setList([...list, {id:uuid(), task}])
+    setList([...list, { id: uuid(), task }])
   }
 
 
@@ -21,17 +21,19 @@ function App() {
 
   // Retorna código HTML
   return (
-    <div>
-      <input onChange={inputMudou} placeholder="O que tenho para fazer" />
-      <button onClick={cliqueiNoBotao}>Adicionar</button>
-      <ul>
-        {
-          list.map(item => (
-            <li key={item.id}> {item.task}</li>
-          ))
-        }
-      </ul>
-    </div>
+    <Container>
+      <ToDoList>
+        <Input onChange={inputMudou} placeholder="O que tenho para fazer" />
+        <Button onClick={cliqueiNoBotao}>Adicionar</Button>
+        <ul>
+          {
+            list.map(item => (
+              <li key={item.id}> {item.task}</li>
+            ))
+          }
+        </ul>
+      </ToDoList>
+    </Container>
   )
 }
 
