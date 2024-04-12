@@ -40,7 +40,7 @@ width: 130px;
 `
 
 export const ListItem = styled.div`
-    background: ${props => props.isFinished ? '#f1f155' : '#f4f4f4' };
+    background: ${ props => props.isFinished ? '#E8FF8B' : '#f4f4f4' };
     box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     height: 60px;

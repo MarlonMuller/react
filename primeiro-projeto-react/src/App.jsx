@@ -7,7 +7,6 @@ function App() {
   const [list, setList] = useState([{ id: uuid(), task: "Nada", finished: true }]);
   const [task, setTask] = useState('');
 
-
   function inputMudou(event) {
     setTask(event.target.value)
     console.log(task)
@@ -17,7 +16,18 @@ function App() {
     setList([...list, { id: uuid(), task, finished: false }])
   }
 
+  function concluirTarefa(id) {
+    const newList = list.map(item => (
+      item.id === id ? { ...item, finished: !item.finished } : item
+    ));
 
+    setList(newList)
+  }
+
+  function excluirTarefa(id) {
+    const newList = list.filter(item => item.id !== id)
+    setList(newList)
+  }
 
 
   // Retorna código HTML
@@ -29,10 +39,10 @@ function App() {
         <ul>
           {
             list.map(item => (
-              <ListItem isFinished={item.finished}>
-                <FcCheckmark />
-                <li key={item.id}> {item.task}</li>
-                <FcEmptyTrash />
+              <ListItem isFinished={item.finished} key={item.id}>
+                <FcCheckmark onClick={() => concluirTarefa(item.id)} />
+                <li> {item.task}</li>
+                <FcEmptyTrash onClick={() => excluirTarefa(item.id)} />
               </ListItem>
             ))
           }
