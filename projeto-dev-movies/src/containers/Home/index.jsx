@@ -1,4 +1,5 @@
 import api from '../../services/api'
+import {Background} from './styles'
 
 function Home () {
 
@@ -11,10 +12,10 @@ function Home () {
     getMovies()
 
     return (
-        <div>
+        <Background img="https://image.tmdb.org/t/p/original/qrGtVFxaD8c7et0jUtaYhyTzzPg.jpg">
             <h1>Home</h1>
             <p>Essa é a home</p>
-        </div>
+        </Background>
     )
 }
 
