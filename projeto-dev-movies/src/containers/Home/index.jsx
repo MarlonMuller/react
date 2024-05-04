@@ -1,5 +1,5 @@
 import api from '../../services/api'
-import {Background} from './styles'
+import {Background, Info, Poster, Container} from './styles'
 import { useEffect, useLayoutEffect, useState } from 'react';
 
 function Home () {
@@ -21,8 +21,19 @@ function Home () {
         <>
         {movie && (
         <Background img={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}>
-            <h1>{movie.title}</h1>
-            <p>{movie.overview}</p>
+            <Container>
+                <Info>
+                    <h1>{movie.title}</h1>
+                    <p>{movie.overview}</p>
+                    <div>
+                        <Button>Assista agora</Button>
+                        <Button>Assista ao trailer</Button>
+                    </div>
+                </Info>
+                <Poster>
+                    <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt="Capa-do-filme" />
+                </Poster>
+            </Container>
         </Background>
         )}
         </>
