@@ -14,6 +14,7 @@ img {
     width: 25%;
 }
 `
+
 export const Menu = styled.ul`
 display: flex;
 list-style: none;
@@ -24,9 +25,26 @@ export const Li = styled.li`
 cursor: pointer;
 font-weight: 600;
 font-size: 28px;
+position: relative;
 
 a {
     text-decoration: none;
     color: #ffffff;
+}
+
+&::after{
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 3px;
+    width: ${(props)=>(props.isActive? '100%' : 0)};
+    background-color: green;
+    bottom: -10px;
+    transition: width 0.5s ease-in-out;
+    left: 50%;
+    transform: translateX(-50%);
+}
+&:hover::after{
+    width:100%;
 }
 `
