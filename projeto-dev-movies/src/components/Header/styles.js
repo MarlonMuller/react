@@ -8,7 +8,9 @@ display: flex;
 padding: 10px 50px;
 justify-content: space-between;
 align-items: center;
-
+background-color: ${(props) => (props.changeBackground ? '#000' : 'transparent')};
+transition: background-color 0.6s ease-in-out;
+min-height: 100px;
 
 img {
     width: 25%;
@@ -37,7 +39,7 @@ a {
     position: absolute;
     width: 300px;
     height: 3px;
-    width: ${(props)=>(props.isActive? '100%' : 0)};
+    width: ${(props) => (props.isActive ? '100%' : 0)};
     background-color: green;
     bottom: -10px;
     transition: width 0.5s ease-in-out;
