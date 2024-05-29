@@ -9,6 +9,7 @@ import {getImages} from '../../utils/getImages'
 
 
 function Home () {
+    const [showModal, setShowModal] = useState(false);
     const [movie, setMovie] = useState();
     const [topMovies, setTopMovies] = useState();
     const [topSeries, setTopSeries] = useState();
@@ -63,14 +64,15 @@ function Home () {
         <>
         {movie && (
         <Background img={getImages(movie.backdrop_path)}>
-            <Modal movieId ={movie.id}/>
+            {showModal && (
+             <Modal movieId={movie.id} setShowModal={setShowModal} />)}
             <Container>
                 <Info>
                     <h1>{movie.title}</h1>
                     <p>{movie.overview}</p>
                     <ContainerButtons>
                         <Button red >Assista agora</Button>
-                        <Button>Assista o trailer</Button>
+                        <Button onClick={() => setShowModal(true)}>Assista o trailer</Button>
                     </ContainerButtons>
                 </Info>
                 <Poster>
