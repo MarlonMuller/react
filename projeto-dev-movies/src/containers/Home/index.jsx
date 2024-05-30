@@ -5,6 +5,8 @@ import api from '../../services/api'
 import {Background, Container, Info, Poster, ContainerButtons} from './styles'
 import Slider from '../../components/Slider';
 import {getImages} from '../../utils/getImages'
+import {useNavigate} from 'react-router-dom'
+import {getMovies, getTopMovies, getTopSeries, getPopularSeries, getPopularPeople} from '../../services/getData'
 
 
 
@@ -15,49 +17,20 @@ function Home () {
     const [topSeries, setTopSeries] = useState();
     const [popularSeries, setPopularSeries] = useState();
     const [popularPeople, setPopularPeople] = useState();
+    const navigate = useNavigate()
 
    useEffect (() => {
 
-    async function getMovies(){
-        const {data: {results}} = await api.get('/movie/popular')
-
-        setMovie(results[0])
+    async function getAllData(){
+        setMovie(await getMovies())
+        setTopMovies(await getTopMovies())
+        setTopSeries(await getTopSeries())
+        setPopularSeries(await getPopularSeries())
+        setPopularPeople(await getPopularPeople())
     }
 
-    async function getTopMovies(){
-        const {data: {results}} = await api.get('/movie/top_rated')
+    getAllData()
 
-        console.log(results)
-        setTopMovies(results)
-    }
-
-    async function getTopSeries(){
-        const {data: {results}} = await api.get('/tv/top_rated')
-
-        console.log(results)
-        setTopSeries(results)
-    }
-
-    async function getPopularSeries(){
-        const {data: {results}} = await api.get('/tv/popular')
-
-        console.log(results)
-        setPopularSeries(results)
-    }
-
-    async function getPopularPeople(){
-        const {data: {results}} = await api.get('/person/popular')
-
-        console.log(results)
-        setPopularPeople(results)
-    }
-
-
-    getMovies()
-    getTopMovies()
-    getTopSeries()
-    getPopularSeries()
-    getPopularPeople()
    },[])
 
     return (
@@ -71,7 +44,7 @@ function Home () {
                     <h1>{movie.title}</h1>
                     <p>{movie.overview}</p>
                     <ContainerButtons>
-                        <Button red >Assista agora</Button>
+                        <Button red  onClick={() => navigate(`/detalhes/${movie.id}`)}>Assista agora</Button>
                         <Button onClick={() => setShowModal(true)}>Assista o trailer</Button>
                     </ContainerButtons>
                 </Info>
