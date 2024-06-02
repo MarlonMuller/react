@@ -1,7 +1,8 @@
 import { getMovieById, getMovieCredits, getMovieSimilar, getMovieVideos } from '../../services/getData'
-import { Container } from './styles'
+import { Container, Background, Cover } from './styles'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { getImages } from '../../utils/getImages'
 
 function Detail() {
   const { id } = useParams()
@@ -12,29 +13,39 @@ function Detail() {
 
   useEffect(() => {
     async function getAllData() {
-        Promise.all([
-            getMovieById(id),
-            getMovieVideos(id),
-            getMovieCredits(id),
-            getMovieSimilar(id)
-        ])
-            .then(([movie, videos, credits, similar]) => {
-                setMovie(movie)
-                setMovieVideos(videos)
-                setMovieCredits(credits)
-                setMovieSimilar(similar)
-            })
-            .catch((error) => console.error(error))
+      Promise.all([
+        getMovieById(id),
+        getMovieVideos(id),
+        getMovieCredits(id),
+        getMovieSimilar(id)
+      ])
+        .then(([movie, videos, credits, similar]) => {
+          setMovie(movie)
+          setMovieVideos(videos)
+          setMovieCredits(credits)
+          setMovieSimilar(similar)
+        })
+        .catch((error) => console.error(error))
     }
     getAllData()
-}, [])
+  }, [])
 
 
 
   return (
-    <Container>
-      <div>Detalhes</div>
-    </Container>
+    <>
+      {movie && (
+        <>
+          <Background image={getImages(movie.backdrop_path)} />
+          <Container>
+            <Cover>
+              <img src={getImages(movie.poster_path)} />
+            </Cover>
+            <div>Detalhes</div>
+          </Container>
+        </>
+      )}
+    </>
   )
 }
 export default Detail
